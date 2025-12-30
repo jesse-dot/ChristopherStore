@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backend API URL - Update this to your deployed backend -->
+    <!-- For Cloudflare Workers: -->
+    <!-- <string name="api_base_url">https://christopherstore-api.your-subdomain.workers.dev</string> -->
+    
+    <!-- For GitHub Pages: -->
+    <!-- <string name="api_base_url">https://yourusername.github.io/ChristopherStore</string> -->
+    
+    <!-- For local development: -->
+    <string name="api_base_url">https://example.com</string>
+    
+    <!-- Set to true to use sample data instead of API -->
+    <bool name="use_sample_data">true</bool>
+</resources>

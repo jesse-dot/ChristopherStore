@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ChristopherStore</string>
+    <string name="description_label">Description</string>
+    <string name="download_install">Download &amp; Install</string>
+    <string name="screenshots_label">Screenshots</string>
+</resources>
