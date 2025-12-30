@@ -1,6 +1,7 @@
 package com.christopherstore.app;
 
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AppListAdapter adapter;
     private List<App> apps;
+    private ApiClient apiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +23,46 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Sample data - in a real app, this would come from a server or database
-        apps = createSampleApps();
-        adapter = new AppListAdapter(this, apps);
-        recyclerView.setAdapter(adapter);
+        apiClient = new ApiClient(this);
+        
+        // Check if we should use sample data or load from API
+        boolean useSampleData = getResources().getBoolean(R.bool.use_sample_data);
+        
+        if (useSampleData) {
+            // Use sample data for offline/testing
+            apps = createSampleApps();
+            adapter = new AppListAdapter(this, apps);
+            recyclerView.setAdapter(adapter);
+        } else {
+            // Load apps from API
+            loadAppsFromApi();
+        }
+    }
+
+    private void loadAppsFromApi() {
+        apiClient.getApps(new ApiClient.ApiCallback<List<App>>() {
+            @Override
+            public void onSuccess(List<App> result) {
+                runOnUiThread(() -> {
+                    apps = result;
+                    adapter = new AppListAdapter(MainActivity.this, apps);
+                    recyclerView.setAdapter(adapter);
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() -> {
+                    Toast.makeText(MainActivity.this, 
+                        "Failed to load apps: " + error, 
+                        Toast.LENGTH_LONG).show();
+                    // Fallback to sample data
+                    apps = createSampleApps();
+                    adapter = new AppListAdapter(MainActivity.this, apps);
+                    recyclerView.setAdapter(adapter);
+                });
+            }
+        });
     }
 
     private List<App> createSampleApps() {
@@ -88,3 +126,4 @@ public class MainActivity extends AppCompatActivity {
         return sampleApps;
     }
 }
+

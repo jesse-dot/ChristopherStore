@@ -1,0 +1,109 @@
+{
+  "apps": [
+    {
+      "id": "calculator",
+      "name": "Sample Calculator",
+      "description": "A simple and elegant calculator app for everyday calculations",
+      "package_name": "com.example.calculator",
+      "icon_url": "https://via.placeholder.com/512x512.png?text=Calculator",
+      "screenshots": [
+        "https://via.placeholder.com/1080x1920.png?text=Screenshot+1",
+        "https://via.placeholder.com/1080x1920.png?text=Screenshot+2"
+      ],
+      "versions": [
+        {
+          "version": "1.0.0",
+          "version_code": 1,
+          "size": 2457600,
+          "download_url": "https://example.com/apps/calculator-1.0.0.apk",
+          "min_sdk": 24,
+          "target_sdk": 33,
+          "release_notes": "Initial release",
+          "release_date": "2024-01-15"
+        }
+      ]
+    },
+    {
+      "id": "notekeeper",
+      "name": "Note Keeper",
+      "description": "Keep track of your notes and ideas with this lightweight note-taking app",
+      "package_name": "com.example.notekeeper",
+      "icon_url": "https://via.placeholder.com/512x512.png?text=Notes",
+      "screenshots": [
+        "https://via.placeholder.com/1080x1920.png?text=Screenshot+1"
+      ],
+      "versions": [
+        {
+          "version": "2.1.5",
+          "version_code": 215,
+          "size": 5242880,
+          "download_url": "https://example.com/apps/notekeeper-2.1.5.apk",
+          "min_sdk": 24,
+          "target_sdk": 33,
+          "release_notes": "Bug fixes and performance improvements",
+          "release_date": "2024-02-20"
+        }
+      ]
+    },
+    {
+      "id": "weather",
+      "name": "Weather Now",
+      "description": "Get real-time weather updates and forecasts for your location",
+      "package_name": "com.example.weather",
+      "icon_url": "https://via.placeholder.com/512x512.png?text=Weather",
+      "screenshots": [],
+      "versions": [
+        {
+          "version": "3.2.1",
+          "version_code": 321,
+          "size": 8388608,
+          "download_url": "https://example.com/apps/weather-3.2.1.apk",
+          "min_sdk": 24,
+          "target_sdk": 33,
+          "release_notes": "Added weather alerts and improved UI",
+          "release_date": "2024-03-10"
+        }
+      ]
+    },
+    {
+      "id": "photogallery",
+      "name": "Photo Gallery",
+      "description": "Browse and organize your photos with an intuitive interface",
+      "package_name": "com.example.photogallery",
+      "icon_url": "https://via.placeholder.com/512x512.png?text=Gallery",
+      "screenshots": [],
+      "versions": [
+        {
+          "version": "1.5.0",
+          "version_code": 150,
+          "size": 12582912,
+          "download_url": "https://example.com/apps/photogallery-1.5.0.apk",
+          "min_sdk": 24,
+          "target_sdk": 33,
+          "release_notes": "New photo editing features",
+          "release_date": "2024-04-05"
+        }
+      ]
+    },
+    {
+      "id": "taskmanager",
+      "name": "Task Manager",
+      "description": "Manage your daily tasks and boost your productivity",
+      "package_name": "com.example.taskmanager",
+      "icon_url": "https://via.placeholder.com/512x512.png?text=Tasks",
+      "screenshots": [],
+      "versions": [
+        {
+          "version": "2.0.3",
+          "version_code": 203,
+          "size": 3145728,
+          "download_url": "https://example.com/apps/taskmanager-2.0.3.apk",
+          "min_sdk": 24,
+          "target_sdk": 33,
+          "release_notes": "Task prioritization and reminders",
+          "release_date": "2024-05-12"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChristopherStore API</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 { color: #2196F3; }
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .endpoint {
+      margin: 15px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border-left: 4px solid #2196F3;
+    }
+    .method {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ChristopherStore API</h1>
+    <p>Lightweight backend for the ChristopherStore Android app.</p>
+    
+    <h2>Available Endpoints</h2>
+    
+    <div class="endpoint">
+      <p><span class="method">GET</span> <code>/apps</code></p>
+      <p>Returns a list of all available apps.</p>
+    </div>
+    
+    <div class="endpoint">
+      <p><span class="method">GET</span> <code>/apps/:id</code></p>
+      <p>Returns detailed information about a specific app.</p>
+    </div>
+    
+    <div class="endpoint">
+      <p><span class="method">GET</span> <code>/apps/:id/:version/download</code></p>
+      <p>Redirects to the download URL for a specific version of an app.</p>
+    </div>
+    
+    <h2>Implementation</h2>
+    <p>This API is implemented as a static site on GitHub Pages with client-side routing. For production use, deploy the Cloudflare Workers version for better performance and server-side routing.</p>
+  </div>
+  
+  <script>
+    // Client-side API router for GitHub Pages
+    const API_BASE = window.location.origin;
+    const MANIFEST_URL = API_BASE + '/manifest.json';
+    let manifestCache = null;
+    
+    async function getManifest() {
+      if (manifestCache) return manifestCache;
+      const response = await fetch(MANIFEST_URL);
+      manifestCache = await response.json();
+      return manifestCache;
+    }
+    
+    async function handleApiRequest(path) {
+      const manifest = await getManifest();
+      
+      // GET /apps
+      if (path === '/apps' || path === '/apps/') {
+        const apps = manifest.apps.map(app => ({
+          id: app.id,
+          name: app.name,
+          description: app.description,
+          package_name: app.package_name,
+          icon_url: app.icon_url,
+          latest_version: app.versions[0]?.version || 'unknown',
+          size: app.versions[0]?.size || 0,
+        }));
+        return { apps };
+      }
+      
+      // GET /apps/:id
+      const appMatch = path.match(/^\/apps\/([^\/]+)\/?$/);
+      if (appMatch) {
+        const app = manifest.apps.find(a => a.id === appMatch[1]);
+        if (!app) return { error: 'App not found' };
+        return { app };
+      }
+      
+      // GET /apps/:id/:version/download
+      const downloadMatch = path.match(/^\/apps\/([^\/]+)\/([^\/]+)\/download\/?$/);
+      if (downloadMatch) {
+        const app = manifest.apps.find(a => a.id === downloadMatch[1]);
+        if (!app) return { error: 'App not found' };
+        
+        const version = app.versions.find(v => v.version === downloadMatch[2]);
+        if (!version) return { error: 'Version not found' };
+        
+        window.location.href = version.download_url;
+        return { redirecting: true };
+      }
+      
+      return { error: 'Not found' };
+    }
+    
+    // Check if this is an API request (not the index page)
+    const path = window.location.pathname;
+    if (path !== '/' && path !== '/index.html') {
+      handleApiRequest(path).then(data => {
+        if (!data.redirecting) {
+          document.body.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

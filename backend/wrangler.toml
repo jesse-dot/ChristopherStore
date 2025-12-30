@@ -1,0 +1,12 @@
+name = "christopherstore-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Environment variables (configure in Cloudflare dashboard)
+# [vars]
+# MANIFEST_URL = "https://raw.githubusercontent.com/jesse-dot/ChristopherStore/main/manifest.json"
+
+# Routes for custom domain (optional)
+# routes = [
+#   { pattern = "api.yourstore.com/*", zone_name = "yourstore.com" }
+# ]
