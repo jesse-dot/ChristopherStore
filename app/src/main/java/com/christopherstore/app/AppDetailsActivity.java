@@ -83,11 +83,14 @@ public class AppDetailsActivity extends AppCompatActivity {
         appSize = intent.getLongExtra("app_size", 0);
 
         // Set data to views
+        // Create App object to use its formatSize method
+        App app = new App(appName, appDescription, appVersion, appPackage, downloadUrl, "", null, appSize);
+        
         appNameTextView.setText(appName);
         appDescriptionTextView.setText(appDescription);
         appVersionTextView.setText("Version: " + appVersion);
         appPackageTextView.setText("Package: " + appPackage);
-        appSizeTextView.setText("Size: " + formatSize(appSize));
+        appSizeTextView.setText("Size: " + app.getFormattedSize());
 
         // Set up download button
         downloadButton.setOnClickListener(v -> startDownload());
@@ -96,19 +99,9 @@ public class AppDetailsActivity extends AppCompatActivity {
         registerReceiver(downloadReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
-    private String formatSize(long size) {
-        if (size < 1024) {
-            return size + " B";
-        } else if (size < 1024 * 1024) {
-            return String.format("%.1f KB", size / 1024.0);
-        } else {
-            return String.format("%.1f MB", size / (1024.0 * 1024.0));
-        }
-    }
-
     private void startDownload() {
-        // Check for storage permission on Android 6.0-9.0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+        // Check for storage permission on Android 6.0-10.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
