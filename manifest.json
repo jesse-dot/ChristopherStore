@@ -1,10 +1,10 @@
 {
   "apps": [
     {
-      "id": "calculator",
-      "name": "Sample Calculator",
-      "description": "A simple and elegant calculator app for everyday calculations",
-      "package_name": "com.example.calculator",
+      "id": "fdroid",
+      "name": "F-Droid",
+      "description": "F-Droid is an installable catalogue of FOSS (Free and Open Source Software) applications for the Android platform. The client makes it easy to browse, install, and keep track of updates on your device.",
+      "package_name": "com.chris.fdroid",
       "icon_url": "https://via.placeholder.com/512x512.png?text=Calculator",
       "screenshots": [
         "https://via.placeholder.com/1080x1920.png?text=Screenshot+1",
@@ -14,10 +14,7 @@
         {
           "version": "1.0.0",
           "version_code": 1,
-          "size": 2457600,
-          "download_url": "https://example.com/apps/calculator-1.0.0.apk",
-          "min_sdk": 24,
-          "target_sdk": 33,
+          "download_url": "https://f-droid.org/F-Droid.apk",
           "release_notes": "Initial release",
           "release_date": "2024-01-15"
         }
